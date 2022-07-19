@@ -21,7 +21,28 @@ const shuffle = (arr) => {
   return arr;
 }
 
+const getRandomColor = (existingColors) => {
+  const colors = [
+    '#f701e4', // pink
+    '#294efd', // blue
+    'lime',
+    '#d8ff00', // yellow
+    '#ff1010', // red
+    '#cac2c2', // white
+    'cyan',
+    'orange'
+  ];
+
+  let color = null;
+  while(!color || existingColors.includes(color)){
+    color = colors[Math.floor(Math.random()*colors.length)];
+  }
+
+  return color
+}
+
 module.exports = {
   generateRoomCode,
   shuffle,
+  getRandomColor,
 }

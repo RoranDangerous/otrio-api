@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Game = require('../game');
-const { InvalidRoomError } = require('../game/exceptions');
 const auth = require('../utils/auth');
 
 router.get('/', (_, res) => {
@@ -11,7 +10,6 @@ router.get('/', (_, res) => {
 router.post('/create', (req, res) => {
   const name = req.body.name;
   const code = Game.create(name);
-  console.log(name)
 
   res.status(200).send({ token: auth.getToken(code, name), code })
 })

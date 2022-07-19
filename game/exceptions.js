@@ -13,6 +13,13 @@ class GameInProgressError extends Error {
     }
 };
 
+class GameNotStartedError extends Error {
+    constructor(message) {
+        super(message);
+        this.message = message ?? 'The game has not started yet. Patience is the best weapon.';
+    }
+};
+
 class PlayerDoesNotExistError extends Error {
     constructor(message) {
         super(message);
@@ -34,6 +41,41 @@ class PlayerLimitReachedError extends Error {
     }
 };
 
+class NotPlayerTurnError extends Error {
+    constructor(message) {
+        super(message);
+        this.message = message ?? 'It is not your turn yet.';
+    }
+};
+
+class InvalidCellError extends Error {
+    constructor(message) {
+        super(message);
+        this.message = message ?? 'Can\'t make a move there.';
+    }
+};
+
+class InvalidChipError extends Error {
+    constructor(message) {
+        super(message);
+        this.message = message ?? 'Invalid chip. What game are you playing?';
+    }
+};
+
+class InvalidPlayerChipError extends Error {
+    constructor(message) {
+        super(message);
+        this.message = message ?? 'Player is out of these chips.';
+    }
+};
+
+class GameEndedError extends Error {
+    constructor(message) {
+        super(message);
+        this.message = message ?? 'The game is already over.';
+    }
+};
+
 
 module.exports = {
     InvalidRoomError,
@@ -41,4 +83,10 @@ module.exports = {
     DuplicatePlayerNameError,
     PlayerLimitReachedError,
     PlayerDoesNotExistError,
+    InvalidCellError,
+    InvalidChipError,
+    InvalidPlayerChipError,
+    GameNotStartedError,
+    NotPlayerTurnError,
+    GameEndedError,
 }

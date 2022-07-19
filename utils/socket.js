@@ -1,5 +1,6 @@
 const auth = require('./auth');
 const Game = require('../game');
+const gameExceptions = require('../game/exceptions');
 const socketIo = require("socket.io");
 const { onGameStateUpdate } = require('./events');
 
@@ -52,9 +53,16 @@ const createSocket = (server) => {
 
   // trigger game updates
   const triggerUpdate = (roomCode) => {
-    const game = new Game(roomCode);
-    console.log(game.state)
-    io.to(roomCode).emit('update', game.state);
+    try{
+      const game = new Game(roomCode);
+      console.log(game.state)
+      io.to(roomCode).emit('update', game.state);
+    } catch(err) {
+      if(err instanceof gameExceptions.InvalidRoomError){
+        return
+      }
+      console.error(err)
+    }
   };
   onGameStateUpdate(triggerUpdate);
 }
