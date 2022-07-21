@@ -14,7 +14,7 @@ const validatePlayer = (token) => {
 }
 
 const corsConfig = {
-  origin: '*', //'https://tictactoe.iroman.ca',
+  origin: 'https://otrio.iroman.ca',
   methods: ['GET', 'POST']
 };
 
