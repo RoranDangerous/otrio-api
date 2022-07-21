@@ -15,7 +15,11 @@ class Game extends GameValidation {
         continue;
       }
 
-      Game.rooms[code] = Game.getNewState(playerName);
+      Game.rooms[code] = Game.getNewState();
+      Game.rooms[code].queen = playerName;
+      Game.rooms[code].players = {
+        [playerName]: Game.getNewPlayerState()
+      }
 
       return code;
     }
@@ -145,6 +149,22 @@ class Game extends GameValidation {
     }
 
     return false;
+  };
+
+  reset = () => {
+    const players = Object.entries(this.state.players);
+
+    Game.rooms[this.roomCode] = Game.getNewState();
+    const newGame = new Game(this.roomCode);
+    newGame.state.queen = this.state.queen;
+
+    players.forEach(([playerName, oldPlayer]) => {
+      newGame.addPlayer(playerName);
+      newGame.state.players[playerName].color = oldPlayer.color;
+      newGame.state.players[playerName].score = oldPlayer.score;
+    })
+
+    this.update();
   }
 }
 

@@ -19,17 +19,15 @@ class GameBase {
     throw new Error('Not Implemented');
   }
 
-  static getNewState = (playerName) => {
+  static getNewState = () => {
     return {
       inProgress: false,
-      queen: playerName,
+      queen: null,
       maxPlayers: 4,
       playersPosition: null,
       playerMove: 0,
       board: Array(9).fill().map(() => GameBase.getNewCellState()),
-      players: {
-        [playerName]: GameBase.getNewPlayerState()
-      }
+      players: { }
     }
   }
 

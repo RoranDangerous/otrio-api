@@ -78,6 +78,12 @@ class GameValidation extends GameBase {
       throw new exceptions.GameEndedError();
     }
   }
+
+  validateIsQueen = (playerName) => {
+    if(this.state.queen !== playerName){
+      throw new Error('You are not the queen, but a jester.')
+    }
+  }
 }
 
 module.exports = GameValidation;
