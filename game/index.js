@@ -29,7 +29,7 @@ class Game extends GameValidation {
     this.validateUniquePlayerName(playerName);
     this.validatePlayersLimit();
 
-    const existingColors = Object.values(this.state.players).reduce((i, j) => [...i, j.color], []);
+    const existingColors = Object.values(this.state.players).map(({ color }) => color);
     this.state.players[playerName] = Game.getNewPlayerState(existingColors);
   }
 
@@ -40,6 +40,10 @@ class Game extends GameValidation {
 
     if(!connected && !this.state.inProgress){
       delete this.state.players[playerName];
+
+      if(this.state.queen === playerName){
+        this.state.queen = Object.keys(this.state.players)[0];
+      }
     }
 
     const allDisconnected = Object.values(this.state.players).reduce((i, j) => i && !j.connected, true);
@@ -163,6 +167,17 @@ class Game extends GameValidation {
       newGame.state.players[playerName].color = oldPlayer.color;
       newGame.state.players[playerName].score = oldPlayer.score;
     })
+
+    this.update();
+  }
+
+  setColor = (playerName, color) => {
+    this.validatePlayer(playerName);
+    this.validateNotStarted();
+    this.validateCanUseColor(color);
+
+    const player = this.getPlayer(playerName);
+    player.color = color;
 
     this.update();
   }

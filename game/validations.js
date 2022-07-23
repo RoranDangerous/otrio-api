@@ -84,6 +84,12 @@ class GameValidation extends GameBase {
       throw new Error('You are not the queen, but a jester.')
     }
   }
+
+  validateCanUseColor = (color) => {
+    if(Object.values(this.state.players).find((player) => player.color === color)){
+      throw new Error('Can\'t use this color.');
+    }
+  }
 }
 
 module.exports = GameValidation;

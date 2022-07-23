@@ -8,10 +8,18 @@ router.get('/', (_, res) => {
 })
 
 router.post('/create', (req, res) => {
-  const name = req.body.name;
-  const code = Game.create(name);
+  const playerName = req.body.name;
+  const color = req.body.color;
 
-  res.status(200).send({ token: auth.getToken(code, name), code })
+  const code = Game.create(playerName);
+
+  const game = new Game(code);
+
+  if(color){
+    game.setColor(playerName, color);
+  }
+
+  res.status(200).send({ token: auth.getToken(code, playerName), code })
 })
 
 router.post('/join', (req, res) => {

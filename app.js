@@ -5,6 +5,7 @@ var bodyParser = require('body-parser');
 
 const port = process.env.PORT || 4001;
 const gameRoutes = require("./routes/game");
+const otherRoutes = require("./routes/other");
 const { createSocket } = require('./utils/socket');
 const auth = require('./utils/auth');
 
@@ -12,6 +13,7 @@ const app = express();
 app.use(cors(auth.corsConfig))
 app.use(bodyParser.json());
 app.use(gameRoutes);
+app.use(otherRoutes);
 
 const server = http.createServer(app);
 
